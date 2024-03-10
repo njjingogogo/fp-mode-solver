@@ -621,9 +621,16 @@ class FPCavity:
 
 
 if __name__ == '__main__':
+    # set up an instance of the FPMirror class with the profile data for processing
     mirror1 = FPMirror('example_profile.datx')
+    # level the mirror profile with respect to the outer area
     mirror1.level()
+    # center the mirror profile with respect to the deepest point
     mirror1.center()
+    # visualize the mirror profile
+    mirror1.plot_data()
+    
+    # setup an instance of the FPCavity class with the mirror and cavity settings
     cavity1 = FPCavity(
         mirror1 = mirror1, 
         length = 170.80e-6,
@@ -633,7 +640,11 @@ if __name__ == '__main__':
         if_window = True,
         window_size = 0.9
     )
+    # search for the wasit of the cavity
     cavity1.waist_search1(if_print = True)
+    # solve the eigenmodes of the cavity
     cavity1.mode_solve()
+    # sort the eigenmodes according to the fundamental mode composition
     cavity1.mode_sort(ref = 'mode', HG_mode_order = 0)
+    # plot the result
     cavity1.mode_plot(mode_order = 0)
